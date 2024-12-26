@@ -7,7 +7,7 @@ version = '0.0.1'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(8)
 	}
 }
 
@@ -18,4 +18,9 @@ repositories {
 dependencies {
 	implementation 'org.apache.hadoop:hadoop-common:3.4.0'
 	implementation 'org.apache.hadoop:hadoop-mapreduce-client-core:3.4.0'
+}
+
+tasks.compileJava {
+	sourceCompatibility = JavaVersion.VERSION_1_8.toString()
+	targetCompatibility = JavaVersion.VERSION_1_8.toString()
 }
