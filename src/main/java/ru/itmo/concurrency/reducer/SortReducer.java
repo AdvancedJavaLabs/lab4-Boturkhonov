@@ -16,7 +16,7 @@ public class SortReducer extends Reducer<LongWritable, SortDto, Text, Text> {
             final double revenue = key.get() / 100.0;
             context.write(
                     new Text(value.getCategory()),
-                    new Text(String.format("%.2f\t%d", revenue, value.getQuantity())));
+                    new Text(revenue + "\t" + value.getQuantity()));
         }
     }
 }

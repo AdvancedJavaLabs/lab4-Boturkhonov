@@ -19,7 +19,7 @@ public class SalesReducer extends Reducer<Text, SalesDto, Text, Text> {
             totalQuantity += val.getQuantity();
         }
 
-        context.write(key, new Text(String.format("%d\t%d", totalRevenue, totalQuantity)));
+        context.write(key, new Text(totalRevenue + "\t" + totalQuantity));
     }
 
 }
