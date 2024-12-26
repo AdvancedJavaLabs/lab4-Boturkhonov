@@ -1,26 +1,25 @@
 package ru.itmo.concurrency.reducer;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
+import ru.itmo.concurrency.dto.SalesDto;
 
 import java.io.IOException;
 
-public class SalesReducer extends Reducer<Text, IntWritable, Text, Text> {
-    private final Text result = new Text();
+public class SalesReducer extends Reducer<Text, SalesDto, Text, Text> {
 
     @Override
-    protected void reduce(final Text key, final Iterable<IntWritable> values, final Context context)
+    protected void reduce(final Text key, final Iterable<SalesDto> values, final Context context)
             throws IOException, InterruptedException {
-        int totalRevenue = 0;
+        long totalRevenue = 0L;
         int totalQuantity = 0;
 
-        for (final IntWritable val : values) {
-            totalRevenue += val.get();
-            totalQuantity++;
+        for (final SalesDto val : values) {
+            totalRevenue += val.getRevenue();
+            totalQuantity += val.getQuantity();
         }
 
-        result.set(totalRevenue / 100.0 + "\t" + totalQuantity); // Возвращаем в формате: выручка + количество
-        context.write(key, result);
+        context.write(key, new Text(String.format("%d\t%d", totalRevenue, totalQuantity)));
     }
+
 }
