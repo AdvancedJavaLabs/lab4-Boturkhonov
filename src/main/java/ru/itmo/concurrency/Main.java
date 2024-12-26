@@ -2,7 +2,7 @@ package ru.itmo.concurrency;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -61,7 +61,7 @@ public class Main {
         sortJob.setMapperClass(SortMapper.class);
         sortJob.setReducerClass(SortReducer.class);
 
-        sortJob.setMapOutputKeyClass(DoubleWritable.class);
+        sortJob.setMapOutputKeyClass(LongWritable.class);
         sortJob.setMapOutputValueClass(SortDto.class);
         sortJob.setOutputKeyClass(Text.class);
         sortJob.setOutputValueClass(Text.class);
